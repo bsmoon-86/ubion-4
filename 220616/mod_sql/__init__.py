@@ -33,9 +33,6 @@ class Database():
     def commit(self):
         self._db.commit()                   ## DB에 적용
 
-    def close(self):
-        self._db.close()                    ## DB와의 접속은 종료
-
 ## pd.DataFrame()  -> pandas라이브러리 안에 있는 class를 사용 (class는 이름의 첫글자를 대문자로 표시)
 ## pd.merge()      -> pandas라이브러리 안에 있는 function를 사용
 def test(_x, _y):
