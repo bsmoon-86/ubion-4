@@ -120,8 +120,11 @@ def graph():
     df["일일사망자"] = df["사망자"].diff().fillna(0)
     decide_data = df["일일사망자"].head(10).tolist()
     date_list = df["등록일시"].head(10).tolist()
+    cnt = len(date_list)
+    print(cnt)
     # return render_template("graph.html")
-    return render_template("chart.html", decide = decide_data, date_list = date_list)
+    return render_template("dashboard.html", decide = decide_data, 
+    date_list = date_list, cnt=cnt)
 
 # ## localhost:5000/second
 # @app.route("/second/")

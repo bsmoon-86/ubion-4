@@ -8,25 +8,37 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div>
+    <div style="width:50%">
         <canvas id="myChart"></canvas>
     </div>
+    <table border="1">
+      <tr>
+        <th>등록일시</th>
+        <th>일일사망자</th>
+      </tr>
+      {%for i in range(0, cnt)%}   
+      <tr>
+        <td>{{date_list[i]}}</td>
+        <td>{{decide[i]}}</td>
+      </tr>
+      {%endfor%}
+    </table>
     <script>
-        const data = {labels: {{date_list | tojson}},
-          datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: {{decide | tojson}},
-          }]
-        };
-        const config = {type: 'line', data: data, options: {}};
-      </script>
+      const data = {labels: {{date_list | tojson}},
+        datasets: [{
+          label: 'My First dataset',
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(255, 99, 132)',
+          data: {{decide | tojson}},
+        }]
+      };
+      const config = {type: 'line', data: data, options: {}};
+    </script>
     <script>
-        const myChart = new Chart(
-          document.getElementById('myChart'),
-          config
-        );
+      const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+      );
     </script>
 </body>
 </html>
