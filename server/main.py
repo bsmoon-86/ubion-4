@@ -109,6 +109,7 @@ def corona():
 
     return send_file(img, mimetype='image/png')
 
+# csv 파일을 읽어서 그래프를 그리고 테이블
 @app.route("/graph")
 def graph():
     df = pd.read_csv('./csv/corona.csv')
@@ -125,6 +126,40 @@ def graph():
     # return render_template("graph.html")
     return render_template("dashboard.html", decide = decide_data, 
     date_list = date_list, cnt=cnt)
+
+#sql에서 데이터를 받아서 그래프를 그리고 테이블 생성
+@app.route("/graph2")
+def graph2():
+    ## sales 테이블에서 `Item Type` 그룹화
+    ## `Item Type`, `Units Sold` 평균, 합계 총 3개의 컬럼을 출력
+    try:
+        sql = """
+            SELECT `Item Type`, 
+            AVG(`Units Sold`) as avg, 
+            SUM(`Units Sold`) as sum 
+            FROM sales 
+            GROUP BY `Item Type` 
+            ORDER BY `Item Type`
+        """
+        _db = mod_sql.Database()
+        result = _db.executeAll(sql)
+        print("result = ", result)
+        item_type = []
+        sold_avg = []
+        sold_sum = []
+        for i in result:
+            item_type.append(i["Item Type"])
+            sold_avg.append(i["avg"])
+            sold_sum.append(i["sum"])
+        print("item type = ", item_type)
+        print("sold avg = ", sold_avg)
+        print("sold sum = ", sold_sum)
+    finally:
+        return render_template("dashboard2.html", 
+        t = result, x = item_type, 
+        y1 = sold_avg, y2 = sold_sum 
+        )
+
 
 # ## localhost:5000/second
 # @app.route("/second/")
