@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $(function(){        // 페이지가 로드 될때 실행.
+            // $(ul.foo) -> ul태그인데 .xxx 클래스명을 뜻한다. ul태그중 foo라는 class 명을 가진 태그
+            $("ul.foo").click(function(){   //ul태그중 foo 라는 클래스 명을 가진 태그를 클릭했을때
+                $("li", this).css('background-color', 'red')    // this 클릭을 자신.
+            })
+        })
+    </script>
+</head>
+<body>
+    <ul>
+        <li>test</li>
+    </ul>
+    <ul class="foo">
+        <li>test2</li>
+        <p>123456789</p>
+    </ul>
+</body>
+</html>

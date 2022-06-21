@@ -12,7 +12,7 @@ app = Flask(__name__)
 # localhost:5000/ 에 접속할때 바로 밑에 있는 함수를 실행.
 @app.route("/")     
 def index():
-    return render_template("index.html")    
+    return render_template("login.html")    
 ## localhost:5000/이라는 주소로 서버에 요청을 보내면
 ## index.html을 렌더링 한다. 
 
@@ -154,13 +154,27 @@ def graph2():
         print("item type = ", item_type)
         print("sold avg = ", sold_avg)
         print("sold sum = ", sold_sum)
-    finally:
+    except:
+        print("Error")
+    else:
         return render_template("dashboard2.html", 
         t = result, x = item_type, 
         y1 = sold_avg, y2 = sold_sum 
         )
 
+@app.route("/graph3")
+def graph3():
+    return render_template("dashboard3.html")
 
+
+@app.route("/graph4")
+def graph4():
+    return render_template("dashboard4.html")
+
+    
+@app.route("/graph5")
+def graph5():
+    return render_template("dashboard5.html")
 # ## localhost:5000/second
 # @app.route("/second/")
 # def second():
