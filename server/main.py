@@ -1,10 +1,11 @@
 ## 웹서버 오픈 사용할 라이브러리(flask) import
 import mod_sql
+import simplejson
 import random
 from io import BytesIO
 import pandas as pd
 import matplotlib.pyplot as plt
-from flask import Flask, render_template, request, send_file, url_for , redirect
+from flask import Flask, render_template, request, send_file, url_for , redirect, jsonify
 
 # class인 Flask안에 __init__ 함수에는 self를 제외한 매개변수 1개는 존재
 app = Flask(__name__)
@@ -71,26 +72,26 @@ def game():
     ## 리스트의 있는 값들 중에 랜덤하게 하나를 출력을 하는 라이브러리
     ## random 라이브러리 
     ## 상단에 random 라이브러리 import
-    _use = request.form["_use"]
+    _use = request.form["use"]
     list_ = ["가위", "바위", "보"]
     choicelist = random.choice(list_)
     if _use == choicelist:
-        return "무승부"
+        return jsonify({'result':"무승부"})
     if _use == "가위":
         if choicelist == "바위":
-            return "패배"
+            return jsonify({'result':"패배"})
         else:
-            return "승리"
+            return jsonify({'result': "승리"})
     elif _use == "바위":
         if choicelist == "보":
-            return "패배"
+            return jsonify({'result':"패배"})
         else:
-            return "승리"
+            return jsonify({'result': "승리"})
     else:
         if choicelist == "가위":
-            return "패배"
+            return jsonify({'result':"패배"})
         else:
-            return "승리"
+            return jsonify({'result': "승리"})
 
 @app.route("/corona")
 def corona():
@@ -142,12 +143,18 @@ def graph2():
             ORDER BY `Item Type`
         """
         _db = mod_sql.Database()
-        result = _db.executeAll(sql)
+        ## result에서 Decimal부분 그냥 숫자의 형태로 변경
+        ## simplejson dict형 데이터를 str형으로 변환 -> 다시 dict 형태로 변경.
+        ## simplejson.dumps()는 dict형 str형으로 변환.
+        ## eval()는 str형 데이터를 dict형 변환
+        result = eval(simplejson.dumps(_db.executeAll(sql))) 
         print("result = ", result)
         item_type = []
         sold_avg = []
         sold_sum = []
         for i in result:
+            ## list 생성
+            ## 
             item_type.append(i["Item Type"])
             sold_avg.append(i["avg"])
             sold_sum.append(i["sum"])

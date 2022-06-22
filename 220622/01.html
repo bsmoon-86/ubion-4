@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>    
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+    <ul class = 'first'>
+        <li class="foo">item1</li>
+        <li>item2</li>
+        <li class="bar">item3</li>
+    </ul>
+    <ul class = 'second'>
+        <li class="foo">item1</li>
+        <li>item2</li>
+        <li class="bar">item3</li>
+    </ul>
+    <script>
+        // ul태그중에 class 값이 first인 태그에서 class가 foo인 태그를 찾는다. 
+        // 배경의 색을 red로 변경
+        $('ul.first').find('.foo').css('background-color', 'red')
+
+        $('ul.second').find('.bar').css('background-color', 'green')
+
+    </script>
+</body>
+</html>
