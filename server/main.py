@@ -168,20 +168,34 @@ def graph2():
         t = result, x = item_type, 
         y1 = sold_avg, y2 = sold_sum 
         )
+## dashboard2.html 파일은 
+## t에는 전체 데이터의 값(dict)
+## x에는 그래프에서 x축의 기준이 되는 값
+## y1, y2에는 그래프에서 y축의 기준이 되는 값
+## chartjs 에서 x와 y1, y2의 값을 기준으로 해서 그래프 생성
+## t라는 값이 지금은 컬럼이 3개 기준.
+## 이 부분은 테이블의 컬럼의 개수의 상관없이 들어갈 수 있도록 수정을 해서 드릴겁니다.
+## t안에 컬럼의 개수의 상관없이 테이블은 완성.
 
 @app.route("/graph3")
 def graph3():
-    return render_template("dashboard3.html")
+    df = pd.read_csv("./csv/drinks.csv")
+    ## continent 결측치 존재. 이 결측치를 'OT' 변경.
+    df['continent'] = df['continent'].fillna('OT')
+    ## continent 그룹화 spirit_servings 평균, 합계.
+    result = df.groupby('continent').spirit_servings.agg(['mean', 'sum'])
+    result_x = result.index.tolist()
+    result_y1 = result["mean"].tolist()
+    result_y2 = result["sum"].tolist()
+    print(result_x, result_y1, result_y2)
+    result_dict = result.to_dict()
+    print(result_dict)
+    return render_template('dashboard2.html', 
+    t = result_dict, x = result_x, y1 = result_y1, y2 = result_y2)
+## DataFrame에서 데이터를 보낼때의 데이터형에 관한 부분은 수정을 해서 드릴겁니다. 
 
 
-@app.route("/graph4")
-def graph4():
-    return render_template("dashboard4.html")
 
-    
-@app.route("/graph5")
-def graph5():
-    return render_template("dashboard5.html")
 # ## localhost:5000/second
 # @app.route("/second/")
 # def second():
