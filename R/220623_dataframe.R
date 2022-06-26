@@ -61,7 +61,7 @@ students[students$midturm >= 80, ]
 
 ## 오름차순, 내림차순 정렬 방법 order() 함수를 사용
 ## 오름차순 정렬
-order(students$grade)
+order(students$grade) ##인덱스의 값 출력.  백터형
 students[order(students$grade),]
 
 ## 내림차순 정렬
