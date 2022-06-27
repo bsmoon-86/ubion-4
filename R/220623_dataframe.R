@@ -42,10 +42,10 @@ new_student
 rbind(students, new_student)
 
 ## 컬럼의 기준으로 출력 방법
-students$name
-students[["grade"]]
-students[[4]]
-students[,"gender"]
+students$name    ## $컬럼명
+students[["grade"]]    ## [[컬럼명]]
+students[[4]]         ##[[컬럼의 위치]]
+students[,"gender"]   ##[행의 수, 열의 컬럼명/위치]
 
 ## 인덱스를 기준으로 출력 방법
 students[1,]
