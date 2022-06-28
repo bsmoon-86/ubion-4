@@ -54,6 +54,32 @@ View(df_word)
 df_word <- rename(df_word, 
                   word = Var1, 
                   freq = Freq)
+typeof(df_word$word)
+## word 컬럼의 값이 숫자형에서 문자형 변경
+df_word$word <- as.character(df_word$word)
+## nchar()글자의 수를 출력
+## 글자의 수가 2개 이상인 경우만 보여주겠다
+df_word <- filter(df_word, nchar(word) >= 2)
 
+## 워드클라우드 설치
+install.packages("wordcloud")
 
+## 워드클라우드 로드
+library(RColorBrewer)
+library(wordcloud)
+
+## Dark2 색상목록 이중에서 8개를 출력
+pal <- brewer.pal(8, "Dark2")
+pal
+
+# 난수를 랜덤하게 생성. 시드를 지정하면 랜덤이 고정
+set.seed(1234)
+wordcloud(words = df_word$word, 
+          freq = df_word$freq, 
+          min.freq = 2, 
+          random.order = F, 
+          max.words = 200, 
+          rot.per = .1, 
+          scale = c(6, 1), 
+          color = pal)
 
