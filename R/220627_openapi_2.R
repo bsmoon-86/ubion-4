@@ -1,28 +1,19 @@
 ## XML 데이터를 수정을 하기 위한 패키지
-#install.packages("XML")
+install.packages("XML")
 library(XML)
 
-#접속 주소 변수
-url <- "http://apis.data.go.kr/1160100/service/GetFnCoBasiInfoService/getFnCoOutl"
+# 접속 주소 변수
+# 환경부 국립환경과학원 미세먼지 데이터 
+# 필수 항목은 서비스 키
+url <- "http://apis.data.go.kr/1480523/MetalMeasuringResultService/MetalService"
 
 #서비스키
 servicekey <- "dtbWOdJ%2FCz5HE0DGLU%2BCRPe7pOW0NIQBUcGEqsHZaTRiYCI%2F5%2BzugwzQjcvuId7NPdg6rUiW%2Bft3fm7yqyD4pw%3D%3D"
 
-#페이지넘버
-pageno <- 1
-
-#페이지당 데이터의 개수
-numofrows <- 10
-
-#데이터의 타입
-type_data <- "xml"
 
 
 service_url <- paste0(url,
-                      "?serviceKey=", servicekey,
-                      "&pageNo=", pageno, 
-                      "&numOfRows=", numofrows, 
-                      "&resultType=", type_data)
+                      "?serviceKey=", servicekey)
 service_url
 
 xmlDocument <- xmlTreeParse(service_url, 
@@ -50,16 +41,14 @@ rows <- as.numeric(rows)
 total_rows <- as.numeric(total_rows)
 
 loopcount <- ceiling(total_rows/rows)
-
+loopcount
 # 결과 값들은 결합할 비어있는 데이터프레임 생성
 Total_data <- data.frame()
 
 for (i in 1:2){
   service_url <- paste0(url,
                         "?serviceKey=", servicekey,
-                        "&pageNo=", i, 
-                        "&numOfRows=", numofrows, 
-                        "&resultType=", type_data)
+                        "&pageNo=", i)
   ## xml 형태의 데이터를 10번 반복해서 받는다.
   document <- xmlTreeParse(service_url, 
                            useInternalNodes = TRUE, 
@@ -77,12 +66,10 @@ for (i in 1:2){
   Total_data <- rbind(Total_data, df_node)
 }
 dim(Total_data)
-
 View(Total_data)
-## 데이터프레임을 csv로 만들기
-## write.csv(데이터프레임명, 파일의이름, 옵션....)
-## row.names 옵션은 csv에 인덱스 값을 넣어줄지 지정
-write.csv(Total_data, "금융.csv", row.names = F)
+write.csv(Total_data, "미세먼지.csv", row.names = F)
+
+
 
 
 
