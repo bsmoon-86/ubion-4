@@ -1,16 +1,16 @@
-install.packages(c("hash", "tau", "Sejong", "RSQLite", "devtools", 
-                   "bit", "rex", "lazyeval", "htmlwidgets", "crosstalk", 
-                   "promises", "later", "sessioninfo", "xopen", "bit64", 
-                   "blob", "DBI", "memoise", "plogr", "covr", "DT", "rcmdcheck", "rversions"), type = "binary")
-install.packages("multilinguer")
+#install.packages(c("hash", "tau", "Sejong", "RSQLite", "devtools", 
+#                   "bit", "rex", "lazyeval", "htmlwidgets", "crosstalk", 
+#                   "promises", "later", "sessioninfo", "xopen", "bit64", 
+#                   "blob", "DBI", "memoise", "plogr", "covr", "DT", "rcmdcheck", "rversions"), type = "binary")
+#install.packages("multilinguer")
 library(multilinguer)
 multilinguer::install_jdk()
-install.packages("remotes")
-remotes::install_github('haven-jeon/KoNLP', upgrade = "never",
+#install.packages("remotes")
+#remotes::install_github('haven-jeon/KoNLP', upgrade = "never",
                         INSTALL_opts=c("--no-multiarch"))
 
 library(KoNLP)
-install.packages("dplyr")
+#install.packages("dplyr")
 library(dplyr)
 
 
@@ -30,7 +30,7 @@ twitter <- rename(twitter,
 head(twitter)
 
 ## 특수문자 제거
-install.packages("stringr")
+#install.packages("stringr")
 library(stringr)
 
 #twitter <- str_replace_all(twitter, "[[:punct:]]", " ")
@@ -62,7 +62,7 @@ df_word$word <- as.character(df_word$word)
 df_word <- filter(df_word, nchar(word) >= 2)
 
 ## 워드클라우드 설치
-install.packages("wordcloud")
+#install.packages("wordcloud")
 
 ## 워드클라우드 로드
 library(RColorBrewer)
