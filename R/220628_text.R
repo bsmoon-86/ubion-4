@@ -80,6 +80,6 @@ wordcloud(words = df_word$word,
           random.order = F, 
           max.words = 200, 
           rot.per = .1, 
-          scale = c(6, 1), 
+          scale = c(4, 0.5), 
           color = pal)
 
