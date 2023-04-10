@@ -17,7 +17,7 @@ class Database():
             host = 'localhost', 
             user = 'root',
             password ='1234',   ## 본인 데이터베이스 비밀번호 
-            db = 'ubion4',
+            db = 'ubion',
             port = 3306
         )
         self.cursor = self._db.cursor(pymysql.cursors.DictCursor)
